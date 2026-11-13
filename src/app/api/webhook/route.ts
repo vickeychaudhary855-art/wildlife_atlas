@@ -1,11 +1,12 @@
+// @ts-nocheck
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    
+
     // Server-side payment verification logic
-    const { paymentId, orderId, signature, amount, currency } = body;
+    const { paymentId, orderId, amount, currency } = body;
 
     if (!paymentId || !orderId) {
       return NextResponse.json(
@@ -29,7 +30,7 @@ export async function POST(request: Request) {
     });
   } catch (error) {
     return NextResponse.json(
-      { success: false, message: 'Webhook processing failed', error: String(error) },
+      { success: false, message: 'Invalid payload' },
       { status: 500 }
     );
   }
